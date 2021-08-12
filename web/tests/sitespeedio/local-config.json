@@ -1,0 +1,20 @@
+{
+  "browsertime": {
+    "browser": "chrome",
+    "iterations": 1,
+    "connectivity": {
+      "profile": "3g"
+    },
+    "plugins": {
+      "disable": ["html"]
+    }
+  },
+  "mobile": true,
+  "utc": true,
+  "outputFolder": "./reports/sitespeedio/",
+  "plugins": {
+    "disable": [],
+    "list": []
+  },
+  "preScript": "./tests/sitespeedio/enable-preview.js"
+}

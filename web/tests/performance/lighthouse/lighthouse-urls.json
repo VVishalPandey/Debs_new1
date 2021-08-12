@@ -1,0 +1,33 @@
+{
+    "production": {
+        "UK": {
+            "url": "https://www.debenhams.com"
+        },
+        "INT": {
+            "url": "https://www.debenhams.com/en-au"
+        },
+        "ROI": {
+            "url": "https://www.debenhams.ie"
+        },
+        "UKPSP": {
+            "url": "https://www.debenhams.com/women/dresses"
+        },
+        "UKPDP": {
+            "url": "https://www.debenhams.com/webapp/wcs/stores/servlet/prod_10701_10001_038020517302_-1"
+        },
+        "API-1-UKPSP": {
+            "url": "https://api-1-debenhams-progressive.mobify-storefront.com/women/dresses"
+        }
+    },
+    "staging": {
+        "UK": {
+            "url": "https://staging.test-debenhams.com"
+        },
+        "INT": {
+            "url": "https://staging.test-debenhams.com/en-au"
+        },
+        "ROI": {
+            "url": "https://staging.test-debenhams.ie"
+        }
+    }
+}

@@ -1,0 +1,169 @@
+Feature: Test Debenhams Customer Enactment end to end journey number 3 for CCC Users
+
+@automatedSanity @e2e
+Scenario: Navigate to chanel perfume PDP page and validate the quantity selector is disabled when quantity set to 3 (max quantity)
+  Given I logout
+  When I am enacting as a guest using CCC
+  When I click on "shopOnBehalfOfCustomerCTA" on "cccLoginPage"
+  Then I should see "cccshopOnBehalfBanner" containing "You are shopping on behalf of a Guest Customer" on "cccLoginPage"
+  When I navigate to "testChanelPerfPdpURL"
+  And I enter "3" in "stepperCount" on "pdpPage"
+  Then I should see "stepperIncrement" "disabled" on "pdpPage"
+
+@automatedSanity @e2e
+Scenario: Add quantity 2 and add to bag and store details from my bag
+  Then I should validate minibag count "before"
+  When I add to bag quantity "2" and go to my bag page
+  Then I should validate minibag count "after"
+  And I store details from myBag to validate later
+
+@preprodSanity
+Scenario: Validate next Nominated Scenario for wcs test environment
+  Given I logout
+  When I am enacting as a guest using CCC
+  When I click on "shopOnBehalfOfCustomerCTA" on "cccLoginPage"
+  Then I should see "cccshopOnBehalfBanner" containing "You are shopping on behalf of a Guest Customer" on "cccLoginPage"
+  When I navigate to "nextNominatedPdpURL"
+  And I click on "addToBagButton" on "pdpPage"
+  And I click on "viewBasketCheckoutButton" on "pdpPage"
+  Then I store details from myBag to validate later
+
+@automatedSanity @preprodSanity @e2e
+Scenario: Navigate to home delivery options by filling the UK address manually
+  Then I navigate to delivery options as ghost user with UK address
+  When I select home delivery and provide UK address details
+  Then I should see "deliveryTypeheaderText" as "Choose your delivery option" on "deliveryOptionPage"
+  Then I should see "nextNominatedOption" exist on "deliveryOptionPage"
+  And I should see "standardOption" exist on "deliveryOptionPage"
+
+@automatedSanity @preprodSanity @e2e
+Scenario: Validate the options under Next nominated delivery option and select the first available daytime option
+  When I click on "nextNominatedOption" on "deliveryOptionPage"
+  Then I should see "nextNominatedSectionHeaderText" as "When would you like to receive your delivery?" on "deliveryOptionPage"
+  When I am in view of "nextNominatedSectionHeaderText" on "deliveryOptionPage"
+  Then I should see "daytimeTab" exist on "deliveryOptionPage"
+  And I should see "eveningTab" exist on "deliveryOptionPage"
+  And I should see "daytimeTabText" as "Daytime" on "deliveryOptionPage"
+  And I should see "eveningTabText" as "Evening" on "deliveryOptionPage"
+  And I validate all options under daytime
+  When I validate first evening and daytime option navigation
+  Then I should see "deliveryMessage" containing "Your order will arrive" on "deliveryOptionPage"
+  And I should see "proceedPaymentButton" exist on "deliveryOptionPage"
+
+@automatedSanity @e2e
+Scenario: Navigate to payment page by selecting proceed payment button and validate the validate the page
+  When I click on "proceedPaymentButton" on "deliveryOptionPage"
+  And I should see "promoCodeAccordion" as "Do you have a promotional code?" on "paymentPage"
+  And I should see "beautyCardAccordion" as "Pay with a Beauty Club card" on "paymentPage"
+  And I should see "giftCardAccordion" as "Pay with a Gift card" on "paymentPage"
+  And I should see "creditCardAccordion" as "Pay with a Credit, Debit or Store card" on "paymentPage"
+  And I should see "placeOrderButton" exist on "paymentPage"
+  And I should see "beautyClubCardPointIDField" exist on "paymentPage"
+
+@automatedSanity @e2e
+Scenario: Validate the payment page delivery selected, credit card & beauty card points as selected by user
+  Then I should see "beautyClubCardPointText" containing "points on your Beauty Club Card" on "paymentPage"
+  And I should see "creditCardPointText" containing "points by paying with your Debenhams Credit Card." on "paymentPage"
+  And I validate "beauty card points" value from mybag
+  And I validate "credit card points" value from mybag
+  And I should see "deliveryType" containing "Day Delivery" on "paymentPage"
+
+@preprodSanity
+Scenario: Navigate to payment page by selecting proceed payment button and validate the validate the page without beauty card for wcs test
+  When I click on "proceedPaymentButton" on "deliveryOptionPage"
+  And I should see "promoCodeAccordion" as "Do you have a promotional code?" on "paymentPage"
+  And I should see "giftCardAccordion" as "Pay with a Gift card" on "paymentPage"
+  And I should see "creditCardAccordion" as "Pay with a Credit, Debit or Store card" on "paymentPage"
+  And I should see "placeOrderButton" exist on "paymentPage"
+  And I should see "creditCardPointText" containing "points by paying with your Debenhams Credit Card." on "paymentPage"
+  And I validate "credit card points" value from mybag
+  And I should see "deliveryType" containing "Day Delivery" on "paymentPage"
+
+@automatedSanity @preprodSanity @e2e
+Scenario Outline: Navigate to Debenhams payment page and validate the visa credit card icon
+  When I am in view of "creditCardIDField" on "paymentPage"
+  And I enter "<credit_card_number>" in "creditCardIDField" on "paymentPage"
+  And I click on "beInTheNowText" on "paymentPage"
+  Then I should see value of "creditCardIDField" as "<cc_number>" on "paymentPage"
+  And I should see "creditCardExpiryMonth" exist on "paymentPage"
+  And I should see "creditCardExpiryYear" exist on "paymentPage"
+  And I should see "creditCardSecurityNumber" exist on "paymentPage"
+  And I should see "creditCardDigitsText" as "<sec_num_digits_text>" on "paymentPage"
+  And I validate "title" of "creditCardIconOnField" as "<icon_type>" on "paymentPage"
+
+  Examples:
+    | credit_card_number | icon_type | sec_num_digits_text  |      cc_number      |
+    |   4111111111111111 | visa      | 3 digits on the back | 4111 1111 1111 1111 |
+
+@automatedSanity @preprodSanity @e2e
+Scenario Outline: Navigate to Debenhams payment page and validate the amex credit card icon
+  When I enter "<credit_card_number>" in "creditCardIDField" on "paymentPage"
+  And I click on "beInTheNowText" on "paymentPage"
+  Then I should see value of "creditCardIDField" as "<cc_number>" on "paymentPage"
+  And I should see "creditCardExpiryMonth" exist on "paymentPage"
+  And I should see "creditCardExpiryYear" exist on "paymentPage"
+  And I should see "creditCardSecurityNumber" exist on "paymentPage"
+  And I should see "creditCardDigitsText" as "<sec_num_digits_text>" on "paymentPage"
+  And I validate "title" of "creditCardIconOnField" as "<icon_type>" on "paymentPage"
+
+  Examples:
+    | credit_card_number |    icon_type     |  sec_num_digits_text  |     cc_number     |
+    |    378282246310005 | american-express | 4 digits on the front | 3782 822463 10005 |
+
+@automatedSanity @preprodSanity @e2e
+Scenario Outline: Navigate to Debenhams payment page and validate the master credit card icon
+  When I enter "<credit_card_number>" in "creditCardIDField" on "paymentPage"
+  And I click on "beInTheNowText" on "paymentPage"
+  Then I should see value of "creditCardIDField" as "<cc_number>" on "paymentPage"
+  And I should see "creditCardExpiryMonth" exist on "paymentPage"
+  And I should see "creditCardExpiryYear" exist on "paymentPage"
+  And I should see "creditCardSecurityNumber" exist on "paymentPage"
+  And I should see "creditCardDigitsText" as "<sec_num_digits_text>" on "paymentPage"
+  And I validate "title" of "creditCardIconOnField" as "<icon_type>" on "paymentPage"
+
+  Examples:
+    | credit_card_number | icon_type  | sec_num_digits_text  |      cc_number      |
+    |   5555555555554444 | mastercard | 3 digits on the back | 5555 5555 5555 4444 |
+
+@automatedSanity @preprodSanity @e2e
+Scenario Outline: Navigate to Debenhams payment page and validate the master credit card icon
+  When I enter "<credit_card_number>" in "creditCardIDField" on "paymentPage"
+  And I click on "beInTheNowText" on "paymentPage"
+  Then I should see value of "creditCardIDField" as "<cc_number>" on "paymentPage"
+  And I should see "creditCardExpiryMonth" exist on "paymentPage"
+  And I should see "creditCardExpiryYear" exist on "paymentPage"
+  And I should see "creditCardSecurityNumber" exist on "paymentPage"
+  And I should see "creditCardDigitsText" as "<sec_num_digits_text>" on "paymentPage"
+  And I validate "title" of "creditCardIconOnField" as "<icon_type>" on "paymentPage"
+
+  Examples:
+    | credit_card_number | icon_type | sec_num_digits_text  |      cc_number      |
+    |   6759270000000000 | maestro   | 3 digits on the back | 6759 2700 0000 0000 |
+
+@automatedSanity @preprodSanity @e2e
+Scenario Outline: Navigate to Debenhams payment page and validate the jcb credit card icon
+  When I enter "<credit_card_number>" in "creditCardIDField" on "paymentPage"
+  And I click on "beInTheNowText" on "paymentPage"
+  Then I should see value of "creditCardIDField" as "<cc_number>" on "paymentPage"
+  And I validate "title" of "creditCardIconOnField" as "<icon_type>" on "paymentPage"
+  When I click on "billingAddressHeaderText" on "paymentPage"
+  And I should see "creditCardIDError" as "Invalid card number - please try again" on "paymentPage"
+
+  Examples:
+    | credit_card_number | icon_type | sec_num_digits_text  |      cc_number      |
+    |   3530111333300000 | JCB       | 3 digits on the back | 3530 1113 3330 0000 |
+
+@automatedSanity @preprodSanity @e2e
+Scenario Outline: Navigate to Debenhams payment page and validate the store card icon
+  When I enter "<store_card_number>" in "creditCardIDField" on "paymentPage"
+  And I click on "beInTheNowText" on "paymentPage"
+  Then I should see value of "creditCardIDField" as "<cc_number>" on "paymentPage"
+  And I should not see "creditCardExpiryMonth" on "paymentPage"
+  And I should not see "creditCardExpiryYear" on "paymentPage"
+  And I should not see "creditCardSecurityNumber" on "paymentPage"
+  And I should not see "creditCardDigitsText" on "paymentPage"
+  And I validate "title" of "creditCardIconOnField" as "<icon_type>" on "paymentPage"
+
+  Examples:
+    | store_card_number | icon_type |      cc_number      |
+    |  6335864917026678 | debenhams | 6335 8649 1702 6678 |

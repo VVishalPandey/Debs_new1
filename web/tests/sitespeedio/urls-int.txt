@@ -1,0 +1,4 @@
+https://www.debenhams.com/en-au INT-Home-Page
+https://www.debenhams.com/en-au/women INT-Sale-Women
+https://www.debenhams.com/en-au/women/dresses INT-PSP-Women-Dresses
+https://www.debenhams.com/webapp/wcs/stores/servlet/Navigate?storeId=55555&langId=-1002&catalogId=10001&lid=%2F%2Fproductsuniverse%2Fen_GB%2Fproduct_online%3DY%2Finsearch%3D1%2Fshipping_countries%3E%7Bau%7D%2Fcategories%3C%7Bproductsuniverse_18661%7D%2Fcategories%3C%7Bproductsuniverse_18661_3074457345617169319%7D%2Fsize_au%3E%7Bau2016%7D INT-PSP-Dresses-size

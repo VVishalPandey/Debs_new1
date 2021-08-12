@@ -1,0 +1,8 @@
+test.js
+translations.js
+app/vendor/
+app/tags/
+app/native/onboarding/
+app/static/
+app/native/
+app/integration-manager/_stub-connector/app/commands-ext/removeUnwantedHTML.js

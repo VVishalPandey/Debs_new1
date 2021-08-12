@@ -1,0 +1,33 @@
+{
+  "browsertime": {
+    "browser": "chrome",
+    "iterations": 3,
+    "connectivity": {
+      "profile": "3g"
+    },
+    "experimental": {
+      "video": true
+    },
+    "plugins": {
+      "disable": ["html"]
+    },
+    "speedIndex": true,
+    "video": true
+  },
+  "mobile": true,
+  "utc": true,
+  "outputFolder": "./reports/sitespeedio/",
+  "plugins": {
+    "disable": [],
+    "list": []
+  },
+  "influxdb": {
+    "host": "10.133.80.4",
+    "username": "admin",
+    "password": "lklw5erJqwqnsdE12s",
+    "tags": "category=default"
+  },
+  "slack" : {
+    "hookUrl": "https://hooks.slack.com/services/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"
+  }
+}

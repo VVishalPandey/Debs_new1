@@ -1,0 +1,117 @@
+Feature: Test recent search funtionality with variation 1
+
+@automated @DEBD-2864
+Scenario: validate the search funtionality with recentSearches mvt off
+  Given I logout
+  Then I should see "searchIcon" exist on "commonPage"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "searchField" exist on "commonPage"
+  And I should see "searchApply" exist on "commonPage"
+  And I enter "Kat Von D" in "searchField" on "commonPage"
+  And I click on "searchApply" on "commonPage"
+  And I should see "url" contains "beauty/kvd-vegan-beauty"
+  When I click on "searchIcon" on "commonPage"
+  And I enter "Men" in "searchField" on "commonPage"
+  And I click on "searchApply" on "commonPage"
+  And I should see "tcatHeaderText" containing "Men's clothing & accessories" on "pspPage"
+  When I click on "searchIcon" on "commonPage"
+  Then I should not see "recentSearchList" on "commonPage"
+  And I should not see "recentSearchHeader" on "commonPage"
+  And I should not see "clearButton" on "commonPage"
+
+
+@automated @DEBD-2864
+Scenario: validate the search funtionality with recentSearches mvt on
+  Given I logout
+  Then I should see "searchIcon" exist on "commonPage"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "searchField" exist on "commonPage"
+  And I should see "searchApply" exist on "commonPage"
+  And I set mvt test for "recentSearches" as "variation1"
+  And I enter "Kat Von D" in "searchField" on "commonPage"
+  And I click on "searchApply" on "commonPage"
+  And I should see "url" contains "beauty/kvd-vegan-beauty"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "recentSearchList" exist on "commonPage"
+  And I should see "recentSearchHeader" exist on "commonPage"
+  Then I should see "clearButton" exist on "commonPage"
+  And I should see "recentSearchKeywordFirst" as "KAT VON D" on "commonPage"
+  And I enter "Men" in "searchField" on "commonPage"
+  And I click on "searchApply" on "commonPage"
+  And I should see "tcatHeaderText" containing "Men's clothing & accessories" on "pspPage"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "recentSearchList" exist on "commonPage"
+  And I should see "recentSearchHeader" exist on "commonPage"
+  Then I should see "clearButton" exist on "commonPage"
+  And I should see "recentSearchKeywordFirst" as "KAT VON D" on "commonPage"
+  And I should see "recentSearchKeywordSecond" as "Men" on "commonPage"
+  When I navigate to "testDressPdpURL"
+  And I set mvt test for "recentSearches" as "variation1"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "recentSearchList" exist on "commonPage"
+  And I should see "recentSearchHeader" exist on "commonPage"
+  Then I should see "clearButton" exist on "commonPage"
+  And I should see "recentSearchKeywordFirst" as "KAT VON D" on "commonPage"
+  And I should see "recentSearchKeywordSecond" as "Men" on "commonPage"
+
+@manual @DEBD-2864
+Scenario: validate the search funtionality with recentSearches on tab/browser restart
+  When I open the "testDressPdpURL" on new tab
+  And I set mvt test for "recentSearches" as "variation1"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "recentSearchList" exist on "commonPage"
+  And I should see "recentSearchHeader" exist on "commonPage"
+  Then I should see "clearButton" exist on "commonPage"
+  And I should see "recentSearchKeywordFirst" as "KAT VON D" on "commonPage"
+  And I should see "recentSearchKeywordSecond" as "Men" on "commonPage"
+  Then I quit the browser
+  And I navigate to "testDressPdpURL"
+  And I set mvt test for "recentSearches" as "variation1"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "recentSearchList" exist on "commonPage"
+  And I should see "recentSearchHeader" exist on "commonPage"
+  Then I should see "clearButton" exist on "commonPage"
+  And I should see "recentSearchKeywordFirst" as "KAT VON D" on "commonPage"
+  And I should see "recentSearchKeywordSecond" as "Men" on "commonPage"
+
+@automated @DEBD-2864
+Scenario: validate the clear seach funtionality and recent search should not appear
+  When I click on "clearButton" on "commonPage"
+  And I click on "searchIcon" on "commonPage"
+  And I should not see "recentSearchHeader" on "commonPage"
+  And I should not see "clearButton" on "commonPage"
+  And I should not see "recentSearchKeywordFirst" on "commonPage"
+  And I enter "MAC" in "searchField" on "commonPage"
+  And I click on "searchApply" on "commonPage"
+  Then I should see "searchText" as "Search results for..." on "pspPage"
+  And I should see "headerText" containing "MAC" on "pspPage"
+
+
+@automated @DEBD-2864 @DEBD-3889-issue
+Scenario: validate the clear seach funtionality and recent search should not appear
+  When I click on "searchIcon" on "commonPage"
+  Then I click on "clearButton" on "commonPage"
+  And I click on "searchIcon" on "commonPage"
+  And I enter "&&&" in "searchField" on "commonPage"
+  And I click on "searchApply" on "commonPage"
+  Then I should see "searchText" as "Search results for..." on "pspPage"
+  And I should see "headerText" containing "&&&" on "pspPage"
+  And I should see "noResultsearchtext1" contains "Sorry, no results"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "recentSearchList" exist on "commonPage"
+  And I should see "recentSearchHeader" exist on "commonPage"
+  Then I should see "clearButton" exist on "commonPage"
+  And I should see "recentSearchKeywordFirst" as "&&&" on "commonPage"
+  When I click on "searchIcon" on "commonPage"
+  And I enter "d" in "searchField" on "commonPage"
+  And I click on "searchApply" on "commonPage"
+  Then I should see "searchText" as "Search results for..." on "pspPage"
+  And I should see "headerText" containing "d" on "pspPage"
+  When I click on "searchIcon" on "commonPage"
+  Then I should see "clearButton" exist on "commonPage"
+  And I should see "recentSearchKeywordFirst" as "&&&" on "commonPage"
+  And I should see "recentSearchKeywordSecond" as "d" on "commonPage"
+  When I click on "recentSearchKeywordFirst" on "commonPage"
+  Then I should see "searchText" as "Search results for..." on "pspPage"
+  And I should see "headerText" containing "&&&" on "pspPage"
+  And I should see "noResultsearchtext1" contains "Sorry, no results"

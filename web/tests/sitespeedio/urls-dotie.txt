@@ -1,0 +1,8 @@
+https://www.debenhams.ie/ DOTIE-Home-Page
+https://www.debenhams.ie/women DOTIE-TCAT-Women
+https://www.debenhams.ie/beauty/make-up DOTIE-All-Make-up
+https://www.debenhams.ie/sale DOTIE-TCAT-Sale
+https://www.debenhams.ie/women/dresses DOTIE-PSP-Sale-Women-Dresses
+https://www.debenhams.ie/beauty DOTIE-TCAT-Beauty
+https://www.debenhams.ie/webapp/wcs/stores/servlet/prod_10701_10001_123251900199_-1 DOTIE-PDP-Parfum
+https://www.debenhams.ie/webapp/wcs/stores/servlet/Navigate?storeId=10052&langId=-1&catalogId=10001&lid=%2F%2Fproductsuniverse%2Fen_GB%2Fproduct_online%3DY%2Finsearch%3D1%2Fcategories%3C%7Bproductsuniverse_18661%7D%2Fcategories%3C%7Bproductsuniverse_18661_3074457345617169319%7D%2Fwomens_size%3E%7B12%7D#filter DOTIE-PSP-Dresses-size
